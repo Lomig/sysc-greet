@@ -14,7 +14,7 @@
       {
         packages.default = pkgs.buildGoModule rec {
           pname = "sysc-greet";
-          version = "1.0.7";
+          version = "1.0.8";
 
           src = ./.;
 
@@ -171,7 +171,8 @@ EOF
                       "${pkgs.sway}/bin/sway -c /etc/greetd/sway-greeter-config";
                   user = "greeter";
                 };
-                initial_session = cfg.settings.initial_session or { };
+              } // lib.optionalAttrs (cfg.settings ? initial_session) {
+                initial_session = cfg.settings.initial_session;
               };
             };
 
